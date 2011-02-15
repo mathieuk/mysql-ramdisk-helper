@@ -1,6 +1,10 @@
 Creates a RAM disk and creates a basic MySQL configuration on it. When interrupted, the script
 will shutdown MySQL and remove the RAM disk.
 
+***************************************************
+* Use of this script is ofcourse on your own risk *
+***************************************************
+
 For now, only a script of Mac OSX 10.6 is available.
 
 Usefull for people not wanting to create excessive wear on, for instance, their SSD drives when
