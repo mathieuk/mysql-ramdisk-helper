@@ -3,7 +3,7 @@
 ##################################
 # CONFIGURE THIS                 #
 ##################################
-RAMDISK_SIZE=256 
+RAMDISK_SIZE=256
 RAMDISK_NAME="MyRamdisk"
 
 MYSQL_ROOTPW="secret"
@@ -26,7 +26,7 @@ cleanup()
 
 	echo "hold on....";
 	sleep 4
-	
+
 	rm $MYSQL_CONFIG
 	rm $MYSQL_SOCKET
 
@@ -36,7 +36,7 @@ cleanup()
 	echo "Hope you had a pleasant flight. Good day."
 	return $?
 }
- 
+
 control_c()
 {
 	echo -en "\n*** Ouch! Exiting ***\n"
