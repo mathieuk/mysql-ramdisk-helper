@@ -13,7 +13,7 @@ max_connections = 1024
 skip-external-locking
 key_buffer = 8M
 max_allowed_packet = 1M
-table_cache = 1024
+# table_cache = 1024
 sort_buffer_size = 8M
 read_buffer_size = 8M
 read_rnd_buffer_size = 8M
