@@ -31,7 +31,7 @@ cleanup()
 	rm $MYSQL_SOCKET
 
 	echo "Unmounting /Volumes/$RAMDISK_NAME"
-	diskutil unmount /Volumes/$RAMDISK_NAME
+	hdiutil detach /Volumes/$RAMDISK_NAME
 
 	echo "Hope you had a pleasant flight. Good day."
 	return $?
