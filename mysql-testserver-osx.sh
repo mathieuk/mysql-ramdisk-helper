@@ -10,6 +10,7 @@ MYSQL_ROOTPW="secret"
 MYSQL_SOCKET=/tmp/myramdisk.sock
 MYSQL_CONFIG=/tmp/myramdisk.cnf
 
+BASEDIR=/usr/local/mysql-5.6.11-osx10.7-x86_64
 DATADIR=/Volumes/$RAMDISK_NAME/mysql
 USER=`whoami`
 
@@ -60,11 +61,11 @@ mkdir $DATADIR
 cat ${SCRIPTPATH}/my.cnf.tpl | sed "s|%DATADIR%|$DATADIR|g;s|%SOCKET%|$MYSQL_SOCKET|;s|%USER%|$USER|" > $MYSQL_CONFIG
 
 # Configure & startup mysql instance
-mysql_install_db5 --defaults-file=$MYSQL_CONFIG --datadir=$DATADIR
-mysqld_safe5 --defaults-file=$MYSQL_CONFIG &
-sleep 2 
+$BASEDIR/scripts/mysql_install_db --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR --datadir=$DATADIR
+$BASEDIR/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR &
+sleep 2
 echo "STARTED MYSQL"
-mysqladmin5 --defaults-file=$MYSQL_CONFIG --socket=$MYSQL_SOCKET -u root password "$MYSQL_ROOTPW"
+$BASEDIR/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root password "$MYSQL_ROOTPW"
 
 trap control_c SIGINT
 wait
