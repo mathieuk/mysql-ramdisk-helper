@@ -10,7 +10,8 @@ MYSQL_ROOTPW="secret"
 MYSQL_SOCKET=/tmp/myramdisk.sock
 MYSQL_CONFIG=/tmp/myramdisk.cnf
 
-BASEDIR=/usr/local/mysql-5.6.11-osx10.7-x86_64
+MYSQLD=`which mysqld`
+BASEDIR=`dirname $MYSQLD`/..
 DATADIR=/Volumes/$RAMDISK_NAME/mysql
 USER=`whoami`
 
