@@ -5,7 +5,7 @@ will shutdown MySQL and remove the RAM disk.
 * Use of this script is ofcourse at your own risk *
 ***************************************************
 
-For now, only a script of Mac OSX 10.6 is available.
+This script has been found to work on Mac OSX 10.6 and 10.9 and should work on all versions in between.
 
 Usefull for people not wanting to create excessive wear on, for instance, their SSD drives when
 running full-DB integration tests.

@@ -3,13 +3,15 @@
 ##################################
 # CONFIGURE THIS                 #
 ##################################
-RAMDISK_SIZE=256 
+RAMDISK_SIZE=256
 RAMDISK_NAME="MyRamdisk"
 
 MYSQL_ROOTPW="secret"
 MYSQL_SOCKET=/tmp/myramdisk.sock
 MYSQL_CONFIG=/tmp/myramdisk.cnf
 
+MYSQLD=`which mysqld`
+BASEDIR=`dirname $MYSQLD`/..
 DATADIR=/Volumes/$RAMDISK_NAME/mysql
 USER=`whoami`
 
@@ -25,17 +27,17 @@ cleanup()
 
 	echo "hold on....";
 	sleep 4
-	
+
 	rm $MYSQL_CONFIG
 	rm $MYSQL_SOCKET
 
 	echo "Unmounting /Volumes/$RAMDISK_NAME"
-	diskutil unmount /Volumes/$RAMDISK_NAME
+	hdiutil detach /Volumes/$RAMDISK_NAME
 
 	echo "Hope you had a pleasant flight. Good day."
 	return $?
 }
- 
+
 control_c()
 {
 	echo -en "\n*** Ouch! Exiting ***\n"
@@ -60,11 +62,11 @@ mkdir $DATADIR
 cat ${SCRIPTPATH}/my.cnf.tpl | sed "s|%DATADIR%|$DATADIR|g;s|%SOCKET%|$MYSQL_SOCKET|;s|%USER%|$USER|" > $MYSQL_CONFIG
 
 # Configure & startup mysql instance
-mysql_install_db5 --defaults-file=$MYSQL_CONFIG --datadir=$DATADIR
-mysqld_safe5 --defaults-file=$MYSQL_CONFIG &
-sleep 2 
+$BASEDIR/scripts/mysql_install_db --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR --datadir=$DATADIR
+$BASEDIR/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR &
+sleep 2
 echo "STARTED MYSQL"
-mysqladmin5 --defaults-file=$MYSQL_CONFIG --socket=$MYSQL_SOCKET -u root password "$MYSQL_ROOTPW"
+$BASEDIR/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root password "$MYSQL_ROOTPW"
 
 trap control_c SIGINT
 wait
